@@ -1,0 +1,94 @@
+.createContainer {
+  width: 100%;
+  height: calc(100vh - 5vh - 1.5rem);
+  min-width: 601px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.createContent {
+  background-color: var(--secondary);
+  width: 50%;
+  border-radius: 1rem;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.btnOpt {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.658);
+  padding: 0.3rem 0.5rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 0 0 1rem 1rem;
+}
+.select {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  width: 64.94px;
+  height: 26.19px;
+  overflow: hidden;
+}
+
+.create {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+.createLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.createContent > h2 {
+  color: var(--txt);
+  font-size: 1.5rem;
+  text-align: center;
+}
+.inputContainer {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.inputContainer > .inputContent {
+  margin-bottom: 1rem;
+}
+.deckList {
+  height: 44px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+.deckItem {
+  background-color: var(--bg);
+  border: none;
+  width: 100%;
+  height: 44px;
+  outline: none;
+  padding: 0 0.5rem;
+  color: var(--txt);
+  opacity: 0.9;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+}
+#deckList {
+  background-color: var(--secondary);
+  color: var(--txt);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+#deckList > option {
+  padding: 0.5rem;
+  display: block;
+}

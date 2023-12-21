@@ -1,0 +1,21 @@
+#inputTitle,
+#svgFile {
+  color: var(--txt);
+  font-size: 1rem;
+}
+.file {
+  display: none;
+}
+#svgFile {
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin-top: 0.2rem;
+  margin-left: 0.5rem;
+}
+#svgFile:active {
+  opacity: 0.7;
+}
+.inputs {
+  display: flex;
+  align-items: center;
+}

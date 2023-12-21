@@ -1,0 +1,62 @@
+.btnLink {
+  text-decoration: none;
+}
+.homeDeck {
+  max-width: 800px;
+  width: 100%;
+  color: white;
+  border-radius: 1rem;
+  display: flex;
+  overflow: hidden;
+  background-color: var(--secondary);
+}
+.homeContent {
+  width: 100%;
+}
+.homeContent > table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.deckTitle {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.329);
+}
+.deckTitle > th,
+.deckData > td {
+  padding: 0.7rem 2rem;
+  text-align: left;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+.deckData > td > a {
+  text-decoration: none;
+  color: var(--txt);
+}
+.deckData > td:nth-last-child(1) {
+  position: relative;
+  cursor: pointer;
+}
+.deckData > td > a:hover {
+  opacity: 0.7;
+}
+
+.rev {
+  color: red;
+}
+.new {
+  color: green;
+}
+.opt {
+  background-color: red;
+  list-style: none;
+  padding: 0.2rem 0.2rem;
+  position: absolute;
+  bottom: 10px;
+  right: 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.opt:hover {
+  opacity: 0.7;
+}

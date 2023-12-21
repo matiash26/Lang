@@ -1,0 +1,23 @@
+.inputSettings {
+  display: flex;
+  color: var(--txt);
+  justify-content: space-between;
+  align-items: center;
+}
+.inputSettings > h4,
+.inputField > span {
+  font-weight: 300;
+  text-transform: capitalize;
+}
+.inputField {
+  display: flex;
+  flex-direction: column;
+}
+.inputField > input {
+  border-radius: 0.2rem;
+  padding: 0 0.5rem;
+  height: 30px;
+  outline: none;
+  border: none;
+  background-color: var(--txt);
+}

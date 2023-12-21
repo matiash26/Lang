@@ -1,0 +1,41 @@
+.alertContainer {
+  padding: 0.5rem 0.3rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  overflow: hidden;
+}
+.alert {
+  position: relative;
+  padding: 0.5rem 0.3rem;
+  border-radius: 0.3rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  top: -3rem;
+  opacity: 0;
+  padding-right: 0.68rem;
+}
+.open {
+  animation: alert 1s forwards ease-in-out;
+}
+.error {
+  background-color: #e51c24;
+}
+.alert span {
+  display: flex;
+  align-items: center;
+}
+.alert span:nth-child(2) {
+  font-size: 0.8rem;
+}
+.ok {
+  background-color: #4cb050;
+}
+@keyframes alert {
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}

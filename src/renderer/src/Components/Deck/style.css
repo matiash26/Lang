@@ -1,0 +1,35 @@
+.deck {
+  max-width: 670px;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 2rem;
+  padding-bottom: 5rem;
+}
+.video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.video > video {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 3px 2px 14px 2px rgb(0 0 0 / 55%);
+}
+.listOfDeck > li {
+  list-style: none;
+  text-align: center;
+  color: var(--txt);
+  font-size: 1.3rem;
+}
+.back {
+  border-top: 1px solid var(--txt);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}

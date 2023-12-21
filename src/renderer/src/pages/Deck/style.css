@@ -1,0 +1,25 @@
+.deckTotal {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+.deckTotal > li {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  gap: 0.8rem;
+}
+.deckTotal > li:nth-child(1) {
+  color: rgb(250, 41, 41);
+}
+.deckTotal > li:nth-child(2) {
+  margin: 0 0.2rem;
+  color: white;
+}
+.deckTotal > li:nth-child(3) {
+  color: var(--accent);
+}
+.timerRev {
+  color: white;
+}
