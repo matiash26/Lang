@@ -22,6 +22,7 @@ export default function Create(): JSX.Element {
   const [newDeck, setNewDeck] = useState('')
   const [loading, setLoading] = useState(false)
   const { setAlert } = useContext(GlobalContext)
+
   const handleInput = (event: ChangeEvent<HTMLInputElement>): void => {
     const path = event.target?.files?.[0].path
     const name = event.target.name as string
@@ -47,7 +48,6 @@ export default function Create(): JSX.Element {
       setLoading(true)
       try {
         const response = await window.api.Render(input, mediaName)
-        console.log(response)
         setAlert(response)
         setLoading(false)
       } catch (error) {

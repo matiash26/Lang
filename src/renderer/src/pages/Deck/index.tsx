@@ -33,7 +33,6 @@ export default function DeckPg(): JSX.Element {
 
   const labelWrong = (): string => {
     const card = cards[0]
-    console.log(card?.hits, card.revision)
     if (card?.hits <= 4 && card.revision === 0) {
       return '1 min'
     }
