@@ -33,17 +33,18 @@ export default function DeckPg(): JSX.Element {
 
   const labelWrong = (): string => {
     const card = cards[0]
-    if (card.hits < 3) {
+    console.log(card?.hits, card.revision)
+    if (card?.hits <= 4 && card.revision === 0) {
       return '1 min'
     }
-    return getDate(card.count ?? 0, 'wrong')
+    return getDate(card?.count, 'wrong')
   }
   const labelGood = (): string => {
     const card = cards[0]
-    if (card.hits < 3) {
+    if (card?.hits < 3) {
       return '1 min'
     }
-    return getDate(card.count ?? 0, 'Good')
+    return getDate(card?.count, 'Good')
   }
   const handlePlay = (): void => {
     const isPaused = videoRef.current?.paused
@@ -60,14 +61,14 @@ export default function DeckPg(): JSX.Element {
       const current = cards?.[0] as ICard
       const copy = JSON.parse(JSON.stringify(current)) as ICard
 
-      if (answer === 'Good' || copy.hits === 1) {
+      if (answer === 'Good' || copy.hits === 1 || (answer === 'Wrong' && copy.hits === 3)) {
         let hitNumber = 1
         if (answer === 'Good' && copy.hits === 1) {
           hitNumber = 2
         }
         copy.hits += hitNumber
       }
-      if (copy.hits === 4) {
+      if ((copy.hits === 4 && answer === 'Good') || (answer === 'Wrong' && copy.revision)) {
         await window.api.Answer(current, answer, deckName)
         setCards((prev) => prev.filter((el) => el.id !== prev[0].id))
         handleShow()
