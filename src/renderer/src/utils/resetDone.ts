@@ -14,6 +14,6 @@ export default function resetDone(path: string): void {
     }
   })
   if (Object.keys(updateDeck)?.length) {
-    checkFile(path, { ...updateDeck, ...deckFile })
+    checkFile(path, { ...deckFile, ...updateDeck })
   }
 }
