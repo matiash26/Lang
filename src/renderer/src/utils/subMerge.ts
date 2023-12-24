@@ -10,8 +10,8 @@ export default function subMerge(nativeArr: ICard[], learnArr: ICard[]): ICard[]
       const startLearn = getTimer(sub.start)
       const endLearn = getTimer(sub.end)
 
-      const isTheSame = startLearn - startNative === 0
-      const isTheSame02 = endNative - endLearn === 0
+      const isTheSame = Math.ceil(startLearn - startNative) === 0
+      const isTheSame02 = Math.ceil(endNative - endLearn) === 0
 
       if (isTheSame || isTheSame02) {
         return sub
@@ -23,9 +23,8 @@ export default function subMerge(nativeArr: ICard[], learnArr: ICard[]): ICard[]
       return { ...native, back: matchTimer.front }
     }
 
-    return native
+    return null
   })
-
   const clearUndefined = merge.filter(Boolean) as ICard[]
   return clearUndefined
 }

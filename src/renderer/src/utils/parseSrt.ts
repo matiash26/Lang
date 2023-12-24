@@ -39,7 +39,8 @@ export default function parseSrt(srt: string): ICard[] {
       subtitle.end = isTimer[1]
     } else {
       if (!isNewLine) {
-        subtitle.front += `${line} `
+        const text = line.replace('<i>', '').replace('</i>', '')
+        subtitle.front += `${text} `
       }
     }
   }
