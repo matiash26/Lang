@@ -60,7 +60,7 @@ export default function speechFix(subtitle: ICard[], mediaName: string, path: st
   const deck = checkFile(path + 'langDeck.json')
   const create = JSON.stringify({
     ...deck,
-    [mediaName]: { ...deck[mediaName], deck: newList }
+    [mediaName]: { ...deck[mediaName], deck: [...deck[mediaName].deck, ...newList] }
   })
   fs.writeFileSync(path + 'langDeck.json', create)
   return newList
