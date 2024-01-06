@@ -4,7 +4,7 @@ import lastRev from './lastRev'
 
 export default function resetDone(path: string): void {
   const updateDeck = {}
-  const deckFile = checkFile(path) as IDeck[]
+  const deckFile = JSON.parse(checkFile(path, 'latin1')) as IDeck[]
 
   Object.keys(deckFile).forEach((key) => {
     const deck = deckFile[key]
@@ -14,6 +14,6 @@ export default function resetDone(path: string): void {
     }
   })
   if (Object.keys(updateDeck)?.length) {
-    checkFile(path, { ...deckFile, ...updateDeck })
+    checkFile(path, 'latin1', { ...deckFile, ...updateDeck })
   }
 }

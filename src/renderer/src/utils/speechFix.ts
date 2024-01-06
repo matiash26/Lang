@@ -1,7 +1,6 @@
 import { ICard } from '../../../types/type'
 import checkFile from './checkFile'
 import getTimer from './getTimer'
-import fs from 'fs'
 
 export default function speechFix(subtitle: ICard[], mediaName: string, path: string): ICard[] {
   const skipId: number[] = []
@@ -57,11 +56,11 @@ export default function speechFix(subtitle: ICard[], mediaName: string, path: st
       }
     }
   }
-  const deck = checkFile(path + 'langDeck.json')
-  const create = JSON.stringify({
+  const deck = JSON.parse(checkFile(path + 'langDeck.json', 'latin1'))
+  const create = {
     ...deck,
     [mediaName]: { ...deck[mediaName], deck: [...deck[mediaName].deck, ...newList] }
-  })
-  fs.writeFileSync(path + 'langDeck.json', create)
+  }
+  checkFile(path + 'langDeck.json', 'latin1', create)
   return newList
 }

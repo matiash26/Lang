@@ -86,7 +86,7 @@ export default function DeckPg(): JSX.Element {
     const deckName = params.get('card') as string
     const { rev, newRev } = settings
     const fetch = await window.api.Fetch(rev, newRev, deckName)
-    if (fetch.data.length) {
+      if (fetch.data.length) {
       const deck = fetch.data?.[0][deckName].deck
       if (deck) {
         const isNew = deck.map((card: ICard) => {

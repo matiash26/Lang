@@ -4,7 +4,6 @@ import { IPath, ICard, IDeck } from './../types/type'
 import { IRev, IData } from './../types/type'
 import { deleteFile } from '../renderer/src/utils/delete'
 import { join } from 'path'
-import readSubtitle from '../renderer/src/utils/readSubtitle'
 import parseVideo from '../renderer/src/utils/parseVideo'
 import speechFix from '../renderer/src/utils/speechFix'
 import checkFile from '../renderer/src/utils/checkFile'
@@ -93,7 +92,7 @@ ipcMain.handle('openFolder', (): any => {
 ipcMain.handle('fetch', (_, rev, newRev, deckName): IData => {
   const deckPath = joinPath + 'langDeck.json'
   resetDone(deckPath)
-  const readDeck = checkFile(deckPath)
+  const readDeck = JSON.parse(checkFile(deckPath, 'utf-8'))
   const keys = deckName ? [deckName] : Object.keys(readDeck)
   const data = getDeck(keys, readDeck, newRev, rev)
   return { error: false, data }
@@ -102,7 +101,7 @@ ipcMain.handle('Render', async (_, path: IPath, mediaName: string): Promise<IDat
   const pathNative = path.pathNative
   const pathLearn = path.pathLearn
   const pathMedia = path.pathMedia
-  const readDeck = checkFile(joinPath + 'langDeck.json')
+  const readDeck = JSON.parse(checkFile(joinPath + 'langDeck.json', 'latin1'))
 
   if (mediaName && pathMedia && !pathLearn && !pathNative) {
     const getDeck = readDeck[mediaName].deck
@@ -116,9 +115,8 @@ ipcMain.handle('Render', async (_, path: IPath, mediaName: string): Promise<IDat
     return { error: false, data: { message: 'Done!' } }
   }
   if (pathNative && pathLearn && pathMedia) {
-    const readNative = readSubtitle(pathNative)
-    const readLearn = readSubtitle(pathLearn)
-
+    const readNative = checkFile(pathNative, 'latin1')
+    const readLearn = checkFile(pathLearn, 'latin1')
     const subNative = parseSrt(readNative)
     const subLearn = parseSrt(readLearn)
     const merge = subMerge(subLearn, subNative)
@@ -143,8 +141,8 @@ ipcMain.on('answer', (_, card: ICard, asnwer, deckName): void => {
   const cardCount = card.count
   const [timestamp, count] = revision(cardCount, asnwer)
 
-  const deck = checkFile(deckFile) as IDeck
-  const settings = checkFile(settingsFile) as IRev
+  const deck = JSON.parse(checkFile(deckFile, 'latin1')) as IDeck
+  const settings = JSON.parse(checkFile(settingsFile, 'latin1')) as IRev
   const newRevDone = card.count === 0 ? (deck[deckName].newRevDone += 1) : 0
   const revDone = card.count !== 0 ? (deck[deckName].revDone += 1) : 0
   const deckUpdate = deck[deckName].deck.map((el: ICard) => {
@@ -165,10 +163,9 @@ ipcMain.on('answer', (_, card: ICard, asnwer, deckName): void => {
 ipcMain.handle('create', (_, deckName): any => {
   if (deckName) {
     const file = joinPath + 'langDeck.json'
-    const deck = checkFile(file)
+    const deck = JSON.parse(checkFile(file, 'latin1'))
     const newJson = { ...deck, [deckName]: { lastRev: 0, newRevDone: 0, revDone: 0, deck: [] } }
-    const convertToString = JSON.stringify(newJson)
-    fs.writeFileSync(file, convertToString)
+    checkFile(file, 'latin1', newJson)
 
     const getkeys = Object.entries(newJson).map((el) => el[0])
     return { error: false, data: getkeys }
@@ -177,7 +174,7 @@ ipcMain.handle('create', (_, deckName): any => {
 ipcMain.handle('delete', (_, deckName, newRev, rev): IData | undefined => {
   if (deckName && newRev && rev) {
     const file = joinPath + 'langDeck.json'
-    const deckJson = checkFile(file)
+    const deckJson = JSON.parse(checkFile(file, 'latin1'))
     for (const media of deckJson[deckName].deck) {
       deleteFile(joinPath + media.name)
     }
@@ -186,20 +183,20 @@ ipcMain.handle('delete', (_, deckName, newRev, rev): IData | undefined => {
     const keys = Object.keys(deckJson)
     const deckList = getDeck(keys, deckJson, newRev, rev)
 
-    fs.writeFileSync(file, convertToString)
+    checkFile(file, 'latin1', convertToString)
     return { error: false, data: deckList }
   }
   return
 })
 ipcMain.handle('deckList', (): IData => {
   const file = joinPath + 'langDeck.json'
-  const deckJson = checkFile(file)
+  const deckJson = JSON.parse(checkFile(file, 'latin1'))
   const keys = Object.keys(deckJson)
   return { error: false, data: keys }
 })
 ipcMain.handle('settings', (_, payload: any): IData => {
   const file = joinPath + 'settings.json'
-  const data = checkFile(file, payload)
+  const data = JSON.parse(checkFile(file, 'latin1', payload))
   return { error: false, data }
 })
 
