@@ -14,7 +14,6 @@ import revision from '../renderer/src/utils/revision'
 import getDeck from '../renderer/src/utils/getDeck'
 import icon from '../../resources/icon.png?asset'
 import path from 'node:path'
-import fs from 'fs'
 
 const joinPath = path.join(__dirname, './../../src/renderer/src/assets/videos/') as string
 function createWindow(): void {
@@ -141,8 +140,8 @@ ipcMain.on('answer', (_, card: ICard, asnwer, deckName): void => {
   const cardCount = card.count
   const [timestamp, count] = revision(cardCount, asnwer)
 
-  const deck = JSON.parse(checkFile(deckFile, 'latin1')) as IDeck
-  const settings = JSON.parse(checkFile(settingsFile, 'latin1')) as IRev
+  const deck = JSON.parse(checkFile(deckFile, 'utf-8')) as IDeck
+  const settings = JSON.parse(checkFile(settingsFile, 'utf-8')) as IRev
   const newRevDone = card.count === 0 ? (deck[deckName].newRevDone += 1) : 0
   const revDone = card.count !== 0 ? (deck[deckName].revDone += 1) : 0
   const deckUpdate = deck[deckName].deck.map((el: ICard) => {
@@ -154,11 +153,11 @@ ipcMain.on('answer', (_, card: ICard, asnwer, deckName): void => {
   if (+settings.newRev === +newRevDone) {
     today = new Date().getTime()
   }
-  const convertToString = JSON.stringify({
+  const convertToString = {
     ...deck,
     [deckName]: { lastRev: today, newRevDone, revDone, deck: deckUpdate }
-  })
-  fs.writeFileSync(deckFile, convertToString)
+  }
+  checkFile(deckFile, 'latin1', convertToString)
 })
 ipcMain.handle('create', (_, deckName): any => {
   if (deckName) {
