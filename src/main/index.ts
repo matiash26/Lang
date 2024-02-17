@@ -178,11 +178,9 @@ ipcMain.handle('delete', (_, deckName, newRev, rev): IData | undefined => {
       deleteFile(joinPath + media.name)
     }
     delete deckJson[deckName]
-    const convertToString = JSON.stringify(deckJson)
     const keys = Object.keys(deckJson)
     const deckList = getDeck(keys, deckJson, newRev, rev)
-
-    checkFile(file, 'latin1', convertToString)
+    checkFile(file, 'latin1', deckJson)
     return { error: false, data: deckList }
   }
   return
